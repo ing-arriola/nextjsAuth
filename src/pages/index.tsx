@@ -8,12 +8,15 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const {data:session} = useSession()
+  console.log('*********** SESSION *************', session)
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 `}
     >
-     <h6>{session?.user?.name}</h6>
+     <h2>{session?.user?.name}</h2>
      <img src={session?.user?.image!} alt="" className="w-32 h-32 rounded-full" />
+     <h6>{session?.user.email}</h6>
+     <span>Provider: <b>{session?.user.provider}</b> </span>
      {
       session ? <button onClick={() => signOut()}>Sign out</button> : <button onClick={() => signIn()}>Sign in</button>
      }
