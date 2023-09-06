@@ -158,7 +158,13 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
                 </p>
               </section>
             )}
-        <SlideButton />
+        <SlideButton
+          type = 'submit'
+          text = 'Sign up'
+          slide_text="Securte sign up"
+          icon = {<FiLock/>}
+          disabled={isSubmitting}
+        />
     </form>
   );
 };
