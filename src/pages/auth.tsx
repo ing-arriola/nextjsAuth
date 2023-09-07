@@ -1,9 +1,11 @@
+import Background from "@/components/backgrounds/Background";
 import RegisterForm from "@/components/forms/Register";
 
 export default function Auth() {
   return (
     <div className="w-full flex items-center justify-center">
         <div className="w-full h-100 flex items-center justify-center">
+            {/* FORM */}
             <div className="w-full sm:w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/3 h-full bg-white">
                 <div className="w-full px-12 py-4">
                     <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
@@ -18,6 +20,8 @@ export default function Auth() {
                     <RegisterForm/>
                 </div>
             </div>
+            {/* BACKGROUND */}
+            <Background image="../../auth/register.jpg"/> 
         </div>
     </div>
   )
