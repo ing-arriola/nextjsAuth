@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {CiUser} from 'react-icons/ci'
 import Input from '../inputs/Input';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import validator from 'validator';
@@ -10,6 +10,8 @@ import { BsTelephone } from 'react-icons/bs';
 import { FiLock } from 'react-icons/fi';
 import zxcvbn from 'zxcvbn';
 import SlideButton from '../buttons/SlideButton';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface IRegisterFormProps {
 }
@@ -40,7 +42,16 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({resolver:zodResolver(FormSchema )})
 
-  const onSubmit = (data:any) => console.log(data)
+  const onSubmit:SubmitHandler<FormSchemaType> = async(values) => {
+    try {
+      const { data } = await axios.post('/api/auth/signup',{
+        ...values
+      })
+      toast.success(data.message)
+    } catch (error:any) {
+      toast.error(error.response.data.message)
+    }
+  }
   const validatePasswordStrength = () =>{
     let password = watch().password;
     return zxcvbn(password ? password : "").score
