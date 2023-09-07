@@ -33,7 +33,7 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
         </div>
         <input 
             type={showPassword ? 'text' : type}
-            className='w-full py-2 pr-7 pl-8 block rounded-md border-gray-300 outline-offset-1 outline-transparent focus:border-blue-500 focus:ring-blue-700 focus:ring-1 text-sm'
+            className='w-full py-2 pr-7 pl-8 block rounded-md border border-gray-300 outline-offset-1 outline-transparent focus:border-blue-500 focus:ring-blue-700 focus:ring-1 text-sm'
             placeholder={placeholder}
             style={{
                 borderColor:`${error ? "#ED4337" : "" }`, color:'black'
