@@ -1,3 +1,4 @@
+import { PulseLoader } from "react-spinners";
 
 interface ISlideButtonProps {
     type:'submit'|'reset'|'button';
@@ -16,9 +17,9 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
          >
             {
                 disabled ? 
-                (<section>
-                    loading...
-                </section>) :
+                (
+                    <PulseLoader color="#fff" size={10} />
+                ) :
                 <>
                 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-blue-600 group-hover:translate-x-0 ease" >
                     {icon}&nbsp;{slide_text}
