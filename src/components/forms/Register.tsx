@@ -12,6 +12,7 @@ import zxcvbn from 'zxcvbn';
 import SlideButton from '../buttons/SlideButton';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 interface IRegisterFormProps {
 }
@@ -34,6 +35,8 @@ const FormSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword,{message:"Password does not match",path:['confirmPassword']}) ;
 type FormSchemaType = z.infer<typeof FormSchema>;
 const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
+  const router = useRouter()
+  const path = router.pathname
   const [passwordScore, setpasswordScore] = useState(0)
   const {
     register,
@@ -70,7 +73,17 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
                     </h2>
                     <p className="text-center text-sm text-gray-600 mt-2">
                         Do you already have an account? &nbsp;
-                        <a href="" className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer">
+                        <a 
+                          className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
+                          onClick={()=>{
+                            router.push({
+                              pathname:path,
+                              query:{
+                                tab:'signin'
+                              }
+                            })
+                          }}
+                          >
                             Sign in
                         </a>
                     </p>

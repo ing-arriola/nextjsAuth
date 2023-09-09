@@ -7,6 +7,7 @@ import { FiLock } from 'react-icons/fi';
 import SlideButton from '../buttons/SlideButton';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 interface ILoginFormProps {
 }
@@ -18,11 +19,11 @@ const FormSchema = z.object({
 })
 type FormSchemaType = z.infer<typeof FormSchema>;
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
-
+  const router = useRouter()
+  const path = router.pathname
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({resolver:zodResolver(FormSchema )})
@@ -47,7 +48,17 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
                     </h2>
                     <p className="text-center text-sm text-gray-600 mt-2">
                         Do you need an account? &nbsp;
-                        <a href="" className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer">
+                        <a 
+                            className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
+                            onClick={()=>{
+                              router.push({
+                                pathname:path,
+                                query:{
+                                  tab:'signup'
+                                }
+                              })
+                            }}
+                            >
                             Sign up
                         </a>
                     </p>
