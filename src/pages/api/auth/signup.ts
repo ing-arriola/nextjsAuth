@@ -1,19 +1,18 @@
 import User from "@/models/User";
-import connectDB from '@/utils/connectDB'
 import type { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import { createActivationToken } from "@/utils/tokens";
-
-import { activateTemplateEmail } from "@/emailTemplates/activate";
 import sendMail from "@/utils/sendMails";
+import connectDb from "@/utils/connectDB";
+import { activateTemplateEmail } from "@/emailTemplates/activate";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    await connectDB();
+    await connectDb();
     const { first_name, last_name, email, phone, password } = req.body;
     if (!first_name || !last_name || !email || !phone || !password) {
       return res.status(400).json({ message: "Please fill in all fields." });
