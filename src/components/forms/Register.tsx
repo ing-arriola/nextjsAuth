@@ -64,6 +64,16 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
   }, [watch().password])
   
   return (
+    <div className="w-full px-12 py-4">
+                    <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
+                        Sign up
+                    </h2>
+                    <p className="text-center text-sm text-gray-600 mt-2">
+                        Do you already have an account? &nbsp;
+                        <a href="" className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer">
+                            Sign in
+                        </a>
+                    </p>
     <form  
       onSubmit={handleSubmit(onSubmit)} 
       className="my-8 text-sm">
@@ -179,6 +189,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
           disabled={isSubmitting}
         />
     </form>
+    </div>
   );
 };
 
