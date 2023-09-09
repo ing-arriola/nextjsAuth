@@ -6,10 +6,12 @@ import { AiOutlineMail } from 'react-icons/ai';
 import { FiLock } from 'react-icons/fi';
 import SlideButton from '../buttons/SlideButton';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 
 interface ILoginFormProps {
+  callbackUrl:string;
+  csfrToken:string
 }
 
 const FormSchema = z.object({
@@ -19,6 +21,7 @@ const FormSchema = z.object({
 })
 type FormSchemaType = z.infer<typeof FormSchema>;
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
+  const {callbackUrl,csfrToken} = props
   const router = useRouter()
   const path = router.pathname
   const {
@@ -29,14 +32,16 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
   } = useForm<FormSchemaType>({resolver:zodResolver(FormSchema )})
 
   const onSubmit:SubmitHandler<FormSchemaType> = async(values) => {
-    try {
-      const { data } = await axios.post('/api/auth/signup',{
-        ...values
-      })
-      reset()
-      toast.success(data.message)
-    } catch (error:any) {
-      toast.error(error.response.data.message)
+    const res = await signIn('credentials',{
+      redirect:false,
+      email:values.email,
+      password: values.password,
+      callbackUrl
+    })
+    if(res?.error){
+      return toast.error(res.error)
+    }else{
+      return router.push("/")
     }
   }
 
@@ -63,9 +68,11 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
                         </a>
                     </p>
     <form  
+      method='post'
+      action="/api/auth/signin/email"
       onSubmit={handleSubmit(onSubmit)} 
       className="my-8 text-sm">
-        
+        <input type="hidden" name="csfrToken" defaultValue={csfrToken} />
         <Input
                 name='email'
                 label='Email address'
