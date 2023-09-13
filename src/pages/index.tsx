@@ -25,7 +25,7 @@ export default function Home() {
           <div className="w-full text-right">
             <div className="py-6 px-3">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                className="bg-blue-500 hover:bg-blue-700 text-md text-white uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
                 onClick={() => signOut()}
               >Log Out
               </button>
